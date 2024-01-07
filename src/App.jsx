@@ -76,7 +76,7 @@ const App = () => {
     const gameOverAlertElement = (
       <div className="alert">
         <b>GAME OVER</b>
-        {moves === 9 ? (
+        {moves === 9 && winBox.length === 0 ? (
           <b>DRAW</b>
         ) : (
           <b>PLAYER {playerTurn === "x" ? "O" : "X"} WON</b>
