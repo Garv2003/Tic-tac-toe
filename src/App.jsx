@@ -4,13 +4,12 @@ const App = () => {
   const [playerTurn, setPlayerTurn] = useState("x");
   const [moves, setMoves] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [span, setSpan] = useState(document.getElementsByTagName("span"));
+  const span = document.querySelectorAll("span");
   const [value, setValue] = useState(["", "", "", "", "", "", "", "", ""]);
-  const blurdiv = document.querySelector(".blurdiv");
-  const [winBox, setWinBox] = useState(["", "", ""]);
+  const blur = document.querySelector(".blur");
+  const [winBox, setWinBox] = useState([]);
 
   function checkWinner(a, b, c) {
-    console.log(value[a], value[b], value[c]);
     a--;
     b--;
     c--;
@@ -25,8 +24,9 @@ const App = () => {
       span[a].parentNode.className += " activeBox";
       span[b].parentNode.className += " activeBox";
       span[c].parentNode.className += " activeBox";
-      gameOver(a);
+      gameOver();
     }
+    return;
   }
 
   function play(y) {
@@ -62,29 +62,25 @@ const App = () => {
   function resetGame() {
     setValue(["", "", "", "", "", "", "", "", ""]);
     setPlayerTurn("x");
-    blurdiv.style.display = "none";
-  }
-
-  function gameOver(a) {
-    setIsGameOver(true);
     setMoves(0);
-    showGameOverAlert(a);
+    blur.style.display = "none";
   }
 
-  const showGameOverAlert = (value) => {
-    console.log(value);
+  function gameOver() {
+    setIsGameOver(true);
+    blur.style.display = "block";
+    showGameOverAlert();
+  }
+
+  const showGameOverAlert = () => {
     const gameOverAlertElement = (
       <div className="alert">
         <b>GAME OVER</b>
-        <br />
-        <br />
-        {moves === 9 && !isGameOver ? (
+        {moves === 9 ? (
           <b>DRAW</b>
         ) : (
-          <b>PLAYER {playerTurn.toUpperCase()} WON</b>
+          <b>PLAYER {playerTurn === "x" ? "O" : "X"} WON</b>
         )}
-        <br />
-        <br />
         <button onClick={playAgain}>Play Again</button>
       </div>
     );
@@ -175,7 +171,7 @@ const App = () => {
           </div>
         </div>
       </div>
-      <div className="blurdiv"></div>
+      <div className="blur"></div>
     </>
   );
 };

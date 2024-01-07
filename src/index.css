@@ -65,10 +65,14 @@ span {
 }
 
 .alert {
-  height: 75px;
+  height: 90px;
   width: 125px;
-  display: inline-block;
-  background: linear-gradient(45deg, #0085ff, #ff1458);
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(180deg, #0085ff, #ff1458);
   position: absolute;
   z-index: 10;
   text-align: center;
@@ -84,7 +88,7 @@ span {
   transform: translate(-50%, -50%);
 }
 
-.blurdiv {
+.blur{
   position: absolute;
   top: 0;
   width: 100vw;
@@ -98,16 +102,13 @@ button {
   border-radius: 2px;
   color: ghostwhite;
   border: none;
-  outline: none;
-}
-
-.reset {
   padding: 5px 10px;
+  outline: none;
+  font-weight: 600;
   font-size: 1.2rem;
   cursor: pointer;
   background: linear-gradient(-90deg, #0085ff, #ff1458);
   color: white;
-  font-weight: 600;
 }
 
 .activeBox {
