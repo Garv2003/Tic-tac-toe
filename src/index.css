@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Poppins, sans-serif;
+}
+body {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(45deg, #0085ff, #ff1458);
+  color: white;
+}
+
+h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+.box {
+  display: inline-block;
+  border: 2px solid white;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+span {
+  position: absolute;
+  font-size: 150px;
+  font-family: sans-serif;
+  text-align: center;
+  height: 100px;
+  width: 100px;
+  padding: 0;
+  margin: 5px;
+  margin-left: -45px;
+}
+
+.top {
+  border-top: none;
+}
+
+.bottom {
+  border-bottom: none;
+}
+
+.left {
+  border-left: none;
+}
+
+.right {
+  border-right: none;
+}
+
+.alert {
+  height: 75px;
+  width: 125px;
+  display: inline-block;
+  background: linear-gradient(45deg, #0085ff, #ff1458);
+  position: absolute;
+  z-index: 10;
+  text-align: center;
+  border-radius: 20px;
+  box-shadow: 0 0 75px 2px rgba(0, 0, 0, 0.2);
+  animation: larger 0.5s;
+  animation-fill-mode: forwards;
+  box-sizing: content-box;
+  font-size: 1.2em;
+  padding: 60px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.blurdiv {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+}
+
+button {
+  background: #ff1458;
+  border-radius: 2px;
+  color: ghostwhite;
+  border: none;
+  outline: none;
+}
+
+.reset {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  background: black;
+  color: white;
+}
+
+.activeBox {
+  background: #0085ff;
+}
+
+@keyframes larger {
+  from {
+    height: 75px;
+    width: 125px;
+  }
+
+  to {
+    height: 100px;
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+  }
+  .box {
+    width: 150px;
+    height: 150px;
+  }
+  span {
+    font-size: 110px;
+    height: 90px;
+    width: 90px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  .box {
+    width: 100px;
+    height: 100px;
+  }
+  span {
+    font-size: 80px;
+    height: 80px;
+    width: 80px;
+    margin-left: -40px;
+  }
+}
+
+@media screen and (max-width: 330px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  .box {
+    width: 80px;
+    height: 80px;
+  }
+  span {
+    font-size: 80px;
+    height: 80px;
+    width: 80px;
+    margin-left: -40px;
+  }
+}
