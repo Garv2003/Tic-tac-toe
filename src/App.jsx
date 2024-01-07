@@ -6,59 +6,22 @@ const App = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [span, setSpan] = useState(document.getElementsByTagName("span"));
   const [value, setValue] = useState(["", "", "", "", "", "", "", "", ""]);
-  var restartButton;
-  restartButton =
-    '<button onclick="playAgain()"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16"><path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/><path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/></svg></button>';
-
-  function play(y) {
-    if (!isGameOver && value[y] === "") {
-      setValue((prev) => {
-        const newVal = [...prev];
-        newVal[y] = playerTurn;
-        return newVal;
-      });
-      setPlayerTurn((prev) => (prev === "x" ? "o" : "x"));
-      setMoves((prev) => prev + 1);
-    }
-    // if (y.dataset.player == "none" && isGameOver == false) {
-    //   y.innerHTML = playerTurn;
-    //   y.dataset.player = playerTurn;
-    //   setMoves(moves + 1);
-    //   if (playerTurn == "x") {
-    //     setPlayerTurn("o");
-    //   } else if (playerTurn == "o") {
-    //     setPlayerTurn("x");
-    //   }
-    // }
-
-    /* Win Types */
-
-    // checkWinner(1, 2, 3);
-    // checkWinner(4, 5, 6);
-    // checkWinner(7, 8, 9);
-    // checkWinner(1, 4, 7);
-    // checkWinner(2, 5, 8);
-    // checkWinner(3, 6, 9);
-    // checkWinner(1, 5, 9);
-    // checkWinner(3, 5, 7);
-
-    console.log(moves);
-    if (moves === 8 && !isGameOver) {
-      draw();
-    }
-  }
+  const blurdiv = document.querySelector(".blurdiv");
+  const [winBox, setWinBox] = useState(["", "", ""]);
 
   function checkWinner(a, b, c) {
+    console.log(value[a], value[b], value[c]);
     a--;
     b--;
     c--;
     if (
-      span[a].dataset.player === span[b].dataset.player &&
-      span[b].dataset.player === span[c].dataset.player &&
-      span[a].dataset.player === span[c].dataset.player &&
-      (span[a].dataset.player === "x" || span[a].dataset.player === "o") &&
-      isGameOver == false
+      value[a] === value[b] &&
+      value[b] === value[c] &&
+      value[a] === value[c] &&
+      (value[a] === "x" || value[a] === "o") &&
+      !isGameOver
     ) {
+      setWinBox([a, b, c]);
       span[a].parentNode.className += " activeBox";
       span[b].parentNode.className += " activeBox";
       span[c].parentNode.className += " activeBox";
@@ -66,67 +29,100 @@ const App = () => {
     }
   }
 
-  function playAgain() {
-    document
-      .getElementsByClassName("alert")[0]
-      .parentNode.removeChild(document.getElementsByClassName("alert")[0]);
-    resetGame();
-    window.isGameOver = false;
-    for (var k = 0; k < span.length; k++) {
-      span[k].parentNode.className = span[k].parentNode.className.replace(
-        "activeBox",
-        ""
-      );
+  function play(y) {
+    if (!isGameOver && value[y] === "") {
+      value[y] = playerTurn;
+      setPlayerTurn((prev) => (prev === "x" ? "o" : "x"));
+      setMoves((prev) => prev + 1);
+    }
+
+    checkWinner(1, 2, 3);
+    checkWinner(4, 5, 6);
+    checkWinner(7, 8, 9);
+    checkWinner(1, 4, 7);
+    checkWinner(2, 5, 8);
+    checkWinner(3, 6, 9);
+    checkWinner(1, 5, 9);
+    checkWinner(3, 5, 7);
+
+    if (moves === 8 && !isGameOver) {
+      gameOver();
     }
   }
 
+  function playAgain() {
+    const boxes = document.querySelectorAll(".activeBox");
+    boxes.forEach((box) => {
+      box.classList.remove("activeBox");
+    });
+    resetGame();
+    setIsGameOver(false);
+  }
+
   function resetGame() {
-    for (let i = 0; i < span.length; i++) {
-      span[i].dataset.player = "none";
-      span[i].parentNode.className = span[i].parentNode.className.replace(
-        "activeBox",
-        ""
-      );
-      span[i].innerHTML = "&nbsp;";
-    }
+    setValue(["", "", "", "", "", "", "", "", ""]);
     setPlayerTurn("x");
     blurdiv.style.display = "none";
   }
 
   function gameOver(a) {
-    var gameOverAlertElement =
-      "<b>GAME OVER </b><br><br> Player " +
-      span[a].dataset.player.toUpperCase() +
-      " Win !!! <br><br>" +
-      restartButton;
-    var div = document.createElement("div");
-    div.className = "alert";
-    div.innerHTML = gameOverAlertElement;
-    document.getElementsByTagName("body")[0].appendChild(div);
     setIsGameOver(true);
-    blurdiv.style.display = "block";
     setMoves(0);
+    showGameOverAlert(a);
   }
 
-  function draw() {
-    var drawAlertElement = "<b>DRAW!!!</b><br><br>" + restartButton;
-    var div = document.createElement("div");
-    div.className = "alert";
-    div.innerHTML = drawAlertElement;
-    document.getElementsByTagName("body")[0].appendChild(div);
-    blurdiv.style.display = "block";
-    window.isGameOver = true;
-    setMoves(0);
-  }
-
-  const blurdiv = document.querySelector(".blurdiv");
-  // const reset = document.querySelector(".reset");
-  // reset.addEventListener("click", resetGame);
+  const showGameOverAlert = (value) => {
+    console.log(value);
+    const gameOverAlertElement = (
+      <div className="alert">
+        <b>GAME OVER</b>
+        <br />
+        <br />
+        {moves === 9 && !isGameOver ? (
+          <b>DRAW</b>
+        ) : (
+          <b>PLAYER {playerTurn.toUpperCase()} WON</b>
+        )}
+        <br />
+        <br />
+        <button onClick={playAgain}>Play Again</button>
+      </div>
+    );
+    return isGameOver ? gameOverAlertElement : <></>;
+  };
 
   return (
     <>
+      {showGameOverAlert()}
       <div id="container">
-        <h1>XO Game</h1>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <h1>XO Game</h1>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+              marginBottom: "20px",
+              gap: "20px",
+            }}
+          >
+            <h4>Player {playerTurn.toUpperCase()} Turn</h4>
+            <button
+              className="reset"
+              onClick={() => {
+                resetGame();
+              }}
+            >
+              Reset Game
+            </button>
+          </div>
+        </div>
         <div className="block">
           <div id="box1" className="box top left">
             <span data-player="none" onClick={() => play(0)}>
@@ -178,7 +174,6 @@ const App = () => {
             </span>
           </div>
         </div>
-        <button className="reset">Reset Game</button>
       </div>
       <div className="blurdiv"></div>
     </>

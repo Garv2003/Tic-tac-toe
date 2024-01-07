@@ -22,28 +22,30 @@ h1 {
   align-items: center;
   flex-direction: column;
   height: 100%;
+  min-height: 100vh;
 }
 
 .box {
   display: inline-block;
   border: 2px solid white;
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   text-align: center;
   box-sizing: border-box;
   padding: 0;
+  position: relative;
 }
 
 span {
   position: absolute;
+  top: 0;
   font-size: 150px;
   font-family: sans-serif;
   text-align: center;
-  height: 100px;
-  width: 100px;
+  height: 180px;
+  width: 180px;
   padding: 0;
-  margin: 5px;
-  margin-left: -45px;
+  margin-left: -88px;
 }
 
 .top {
@@ -100,11 +102,12 @@ button {
 }
 
 .reset {
-  padding: 10px 20px;
+  padding: 5px 10px;
   font-size: 1.2rem;
   cursor: pointer;
-  background: black;
+  background: linear-gradient(-90deg, #0085ff, #ff1458);
   color: white;
+  font-weight: 600;
 }
 
 .activeBox {
@@ -150,9 +153,9 @@ button {
   }
   span {
     font-size: 80px;
-    height: 80px;
-    width: 80px;
-    margin-left: -40px;
+    height: 100px;
+    width: 100px;
+    margin-left: -50px;
   }
 }
 
