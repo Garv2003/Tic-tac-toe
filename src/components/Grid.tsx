@@ -1,24 +1,28 @@
 import { GridProps } from "../types";
 import Box from "./Box";
 
+const GridArray = [
+  { id: 1, box: [0, 1, 2] },
+  { id: 2, box: [3, 4, 5] },
+  { id: 3, box: [6, 7, 8] },
+];
+
 const Grid = ({ value, play, winBox }: GridProps) => {
   return (
     <>
-      <div className="block">
-        <Box index={0} value={value} play={play} winBox={winBox} />
-        <Box index={1} value={value} play={play} winBox={winBox} />
-        <Box index={2} value={value} play={play} winBox={winBox} />
-      </div>
-      <div className="block">
-        <Box index={3} value={value} play={play} winBox={winBox} />
-        <Box index={4} value={value} play={play} winBox={winBox} />
-        <Box index={5} value={value} play={play} winBox={winBox} />
-      </div>
-      <div className="block">
-        <Box index={6} value={value} play={play} winBox={winBox} />
-        <Box index={7} value={value} play={play} winBox={winBox} />
-        <Box index={8} value={value} play={play} winBox={winBox} />
-      </div>
+      {GridArray.map((row, index) => (
+        <div className="block" key={row.id}>
+          {row.box.map((box) => (
+            <Box
+              key={box}
+              index={box}
+              value={value}
+              play={play}
+              winBox={winBox}
+            />
+          ))}
+        </div>
+      ))}
     </>
   );
 };

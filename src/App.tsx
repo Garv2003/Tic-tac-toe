@@ -70,7 +70,6 @@ const App = () => {
       />
       <Header playerTurn={playerTurn} resetGame={resetGame} />
       <Grid value={value} play={play} winBox={winBox} />
-      {isGameOver && <div className="blur"></div>}
     </div>
   );
 };
